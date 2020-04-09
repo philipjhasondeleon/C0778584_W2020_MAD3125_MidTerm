@@ -2,6 +2,7 @@ package com.example.c0778584_w2020_mad3125_midterm.model;
 
 import java.util.Date;
 
+//Hello from pritesh
 public class Customer {
     private String firstName;
     private String  lastName;
@@ -14,5 +15,5 @@ public class Customer {
     private double rrspCarryForward;
     private double totalEI;
     private double totalTaxableAmount;
-    private double totalTaxPaid; //sadsad
+    private double totalTaxPaid;
 }
