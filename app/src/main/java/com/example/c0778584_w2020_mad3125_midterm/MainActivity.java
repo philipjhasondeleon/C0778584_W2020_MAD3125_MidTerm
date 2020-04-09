@@ -75,6 +75,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btnCalculate = findViewById(R.id.btnCalculate);
+        btnCalculate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mIntent = new Intent(MainActivity.this, SecondActivity.class);
+                startActivity(mIntent);
+            }
+        });
 
 
 
