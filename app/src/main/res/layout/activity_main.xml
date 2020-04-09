@@ -91,7 +91,7 @@
         android:layout_width="370dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:drawableLeft="@drawable/ic_launcher_foreground"
+        android:drawableLeft="@drawable/usdollar"
         android:ems="10"
         android:hint="Enter RRSP"
         android:inputType="textPersonName"
