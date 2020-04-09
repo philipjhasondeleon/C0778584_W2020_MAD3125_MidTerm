@@ -15,6 +15,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.c0778584_w2020_mad3125_midterm.model.Customer;
+
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
@@ -84,7 +86,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        rdgrpGender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
 
+                if(i == R.id.radioButtonMale){
+                    gender = rdbtnMale.getText().toString();
+                }else if(i == R.id.radioButtonFemale){
+                    gender = rdbtnFemale.getText().toString();
+                }else {
+                    gender = rdbtnOther.getText().toString();
+                }
+            }
 
+        });
     }
+
+
 }
