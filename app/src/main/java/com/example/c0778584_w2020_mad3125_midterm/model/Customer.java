@@ -2,7 +2,6 @@ package com.example.c0778584_w2020_mad3125_midterm.model;
 
 import java.util.Date;
 
-//Hello from pritesh
 public class Customer {
     private String firstName;
     private String  lastName;
