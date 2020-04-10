@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.c0778584_w2020_mad3125_midterm.model.Customer;
 
 import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -58,6 +59,10 @@ public class MainActivity extends AppCompatActivity {
         edttxtTaxFiledDate = findViewById(R.id.editTextFilledDate);
         btnCalculate = findViewById(R.id.btnCalculate);
 
+        edttxtTaxFiledDate.setText(new StringBuilder()
+                .append(day).append(" ").append("-").append(month + 1).append("-")
+                .append(year));
+
         edttxtBirthDate.setInputType(InputType.TYPE_NULL);
         edttxtBirthDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
 
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                //edttxtBirthDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
                                 edttxtBirthDate.setText(monthOfYear +"/"+ dayOfMonth +"/" +year);
                             }
                         }, year, month, day);
@@ -82,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent mIntent = new Intent(MainActivity.this, SecondActivity.class);
-                startActivity(mIntent);
+                fieldIsEmpty();
             }
         });
 
@@ -102,5 +106,89 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void fieldIsEmpty() {
+        boolean Flag = false;
+        if(edttxtSinNumber.getText().toString().isEmpty())
+        {
+            edttxtSinNumber.setError("Please enter your SIN");
+            Flag = true;
+            return;
+        }
+        if(edttxtFirstName.getText().toString().isEmpty()){
+            edttxtFirstName.setError("Please enter your first name");
+            Flag = true;
+            return;
+        }
+        if(edttxtLastName.getText().toString().isEmpty())
+        {
+            edttxtLastName.setError("Please enter your Last Name");
+            Flag = true;
+            return;
+        }
+        if(edttxtBirthDate.getText().toString().isEmpty())
+        {
+            edttxtBirthDate.setError("Please enter your date of birth");
+            Flag = true;
+            return;
+        }
+        if(edttxtGrossIncome.getText().toString().isEmpty())
+        {
+            edttxtGrossIncome.setError("Please enter your Gross Income");
+            Flag = true;
+            return;
+        }
+        if(edttxtRRSP.getText().toString().isEmpty())
+        {
+            edttxtRRSP.setError("Please enter valid RRSP");
+            Flag = true;
+            return;
+        }
 
+        if(!Flag)
+        {
+            Double grossIncome = Double.parseDouble(edttxtGrossIncome.getText().toString());
+            Double rrspContribution = Double.parseDouble(edttxtRRSP.getText().toString());
+            Customer customer = new Customer(edttxtSinNumber.getText().toString(),
+                    edttxtFirstName.getText().toString(),edttxtLastName.getText().toString(),
+                    edttxtBirthDate.getText().toString(),edttxtTaxFiledDate.toString(),Double.parseDouble(edttxtGrossIncome.getText().toString()),
+                    Double.parseDouble(edttxtRRSP.getText().toString()));
+            Intent mIntent = new Intent(MainActivity.this, SecondActivity.class);
+            mIntent.putExtra("Customer", customer);
+            mIntent.putExtra("gender", gender);
+            mIntent.putExtra("age", getCurrentDate());
+            mIntent.putExtra("filedDate",taxFiledDate);
+            startActivity(mIntent);
+        }
+    }
+    int calculateAge(String date){
+        Calendar dob = Calendar.getInstance();
+        Calendar today = Calendar.getInstance();
+
+        int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
+        String age_e= "Age is"+String.valueOf(age);
+        Toast.makeText(MainActivity.this, age_e, Toast.LENGTH_SHORT).show();
+        if(today.get(Calendar.DAY_OF_MONTH) < dob.get(Calendar.DAY_OF_MONTH)){
+            age--;
+        }
+        return age;
+    }
+    public String getCurrentDate() {
+
+        StringBuilder todaydate=new StringBuilder();
+        Calendar today=Calendar.getInstance();
+        int age=today.get(Calendar.YEAR)-picker.getDatePicker().getYear();
+        if (today.get(Calendar.MONTH) < picker.getDatePicker().getYear()) {
+            age--;
+        } else if (today.get(Calendar.MONTH) == picker.getDatePicker().getYear()
+                && today.get(Calendar.DAY_OF_MONTH) < picker.getDatePicker().getYear()) {
+            age--;
+        }
+
+        todaydate.append(String.valueOf(age));
+        return todaydate.toString();
+    }
+    Date date=java.util.Calendar.getInstance().getTime();
+    String taxFiledDate = date.toString();
 }
+
+

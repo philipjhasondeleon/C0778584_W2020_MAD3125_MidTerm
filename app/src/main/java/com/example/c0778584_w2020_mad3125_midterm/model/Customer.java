@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 import java.util.Date;
 
-public class Customer {
+public class Customer implements Parcelable{
     private String sinNumber;
     private String firstName;
     private String  lastName;
@@ -151,6 +151,52 @@ public class Customer {
         this.totalTaxPaid = totalTaxPaid;
     }
 
+    protected Customer(Parcel parcel) {
+        sinNumber = parcel.readString();
+        firstName = parcel.readString();
+        lastName = parcel.readString();
+        gender = parcel.readString();
+        provTax = parcel.readDouble();
+        fedTax = parcel.readDouble();
+        rrspCarryForward = parcel.readDouble();
+        grossIncome = parcel.readDouble();
+        rrspContribution = parcel.readDouble();
+        totalEI = parcel.readDouble();
+        totalTaxableAmount = parcel.readDouble();
+        totalTaxPaid = parcel.readDouble();
 
+    }
+    public static final Parcelable.Creator<Customer> CREATOR = new Parcelable.Creator<Customer>() {
+        @Override
+        public Customer createFromParcel(Parcel parcel) {
+            return new Customer(parcel);
+        }
+
+        @Override
+        public Customer[] newArray(int size) {
+            return new Customer[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(sinNumber);
+        dest.writeString(firstName);
+        dest.writeString(lastName);
+        dest.writeString(gender);
+        dest.writeDouble(fedTax);
+        dest.writeDouble(provTax);
+        dest.writeDouble(rrspCarryForward);
+        dest.writeDouble(grossIncome);
+        dest.writeDouble(rrspContribution);
+        dest.writeDouble(totalEI);
+        dest.writeDouble(totalTaxableAmount);
+        dest.writeDouble(totalTaxPaid);
+    }
 
 }
