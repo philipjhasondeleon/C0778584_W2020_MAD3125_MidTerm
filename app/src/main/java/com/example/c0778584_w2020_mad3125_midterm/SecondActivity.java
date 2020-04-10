@@ -67,7 +67,45 @@ public class SecondActivity extends AppCompatActivity {
         Intent mIntent = getIntent();
         Customer customer = mIntent.getParcelableExtra("Customer");
 
-        lblSin.setText(customer.getSinNumber());
-//
+        lblSin.setText( customer.getSinNumber());
+        lblFullName.setText( customer.getFull_name());
+        lblGender.setText(getIntent().getStringExtra("gender"));
+        lblAge.setText(getIntent().getStringExtra("age"));
+        lblGrossIncome.setText(String.valueOf(customer.getGrossIncome()));
+        lblRRSPContributed.setText(String.valueOf(customer.getRrspContribution()));
+
+        double grossIncome = customer.getGrossIncome();
+        if(grossIncome > 57400.00){
+            cpp = (57400.00 * 0.051); //5.10%
+        } else {
+            cpp = (grossIncome * 0.051);
+        }
+        lblCpp.setText(String.format("%.2f", cpp));
+
+
+        if(grossIncome > 53100){
+            ei = (53100 * 0.0162); //1.62%
+        }else{
+            ei = (grossIncome * (1.62/100));
+        }
+        lblEI.setText(String.format("%.2f", ei));
+
+
+        rrsp = customer.getRrspContribution();
+        double maxRRSP = (grossIncome * 0.18); //18%
+        rrsp = customer.getRrspContribution();
+        rrspCarryFwd = maxRRSP - rrsp ;
+
+       if(rrspCarryFwd < 0)
+        {
+           lblRRSPCarryFwd.setTextColor(Color.RED);
+            lblRRSPCarryFwd.setText(String.format("%.2f",rrspCarryFwd));
+       }
+        else
+        {
+            lblRRSPCarryFwd.setText(String.format("%.2f",rrspCarryFwd));
+        }
+
+
     }
 }
